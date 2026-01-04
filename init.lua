@@ -891,25 +891,47 @@ require('lazy').setup({
     },
   },
 
-  { -- You can easily change to a different colorscheme.
-    -- Change the name of the colorscheme plugin below, and then
-    -- change the command in the config to whatever the name of that colorscheme is.
-    --
-    -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-    'folke/tokyonight.nvim',
+  { -- VS Code Dark Modern colorscheme
+    'Mofiqul/vscode.nvim',
     priority = 1000, -- Make sure to load this before all the other start plugins.
     config = function()
-      ---@diagnostic disable-next-line: missing-fields
-      require('tokyonight').setup {
-        styles = {
-          comments = { italic = false }, -- Disable italics in comments
+      local c = require('vscode.colors').get_colors()
+      require('vscode').setup {
+        style = 'dark',
+        transparent = false,
+        italic_comments = false,
+        underline_links = true,
+        disable_nvimtree_bg = true,
+        color_overrides = {
+          -- VS Code Default Dark Modern uses slightly different background
+          vscBack = '#1f1f1f',
+          vscPopupBack = '#252526',
+        },
+        group_overrides = {
+          -- Customize specific highlight groups to match VS Code Default Dark Modern
+          ['@keyword'] = { fg = '#569cd6' },
+          ['@keyword.function'] = { fg = '#569cd6' },
+          ['@keyword.return'] = { fg = '#569cd6' },
+          ['@type'] = { fg = '#4ec9b0' },
+          ['@type.builtin'] = { fg = '#4ec9b0' },
+          ['@function'] = { fg = '#dcdcaa' },
+          ['@function.call'] = { fg = '#dcdcaa' },
+          ['@method'] = { fg = '#dcdcaa' },
+          ['@method.call'] = { fg = '#dcdcaa' },
+          ['@property'] = { fg = '#9cdcfe' },
+          ['@variable'] = { fg = '#9cdcfe' },
+          ['@variable.parameter'] = { fg = '#9cdcfe' },
+          ['@string'] = { fg = '#ce9178' },
+          ['@number'] = { fg = '#b5cea8' },
+          ['@boolean'] = { fg = '#569cd6' },
+          ['@constant'] = { fg = '#4fc1ff' },
+          ['@constructor'] = { fg = '#4ec9b0' },
+          ['@punctuation.bracket'] = { fg = '#ffd700' },
+          ['@operator'] = { fg = '#d4d4d4' },
+          ['@comment'] = { fg = '#6a9955' },
         },
       }
-
-      -- Load the colorscheme here.
-      -- Like many other themes, this one has different styles, and you could load
-      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'tokyonight-night'
+      vim.cmd.colorscheme 'vscode'
     end,
   },
 
@@ -960,7 +982,7 @@ require('lazy').setup({
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
+      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'typescript', 'tsx', 'javascript', 'json' },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
